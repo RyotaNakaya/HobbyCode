@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= @title %></title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body style="padding-top: 4.5rem;">
+    <%= render template:"layouts/common_header" %>
+  <div class="container">
+
+    <%= yield %>
+
+    <hr size="1" color="#aaa">
+    <%= render template:"layouts/common_footer" %>
+    </div>
+  </body>
+</html>
+ 

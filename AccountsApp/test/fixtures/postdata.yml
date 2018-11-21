@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  category: 
+  amount: 1
+  date: 2018-11-20 15:21:03
+  unit: 1
+  remark: MyText
+  store: MyText
+  yobi1: 1
+  yobi2: 1
+  yobi3: 1
+
+two:
+  category: 
+  amount: 1
+  date: 2018-11-20 15:21:03
+  unit: 1
+  remark: MyText
+  store: MyText
+  yobi1: 1
+  yobi2: 1
+  yobi3: 1

@@ -1,0 +1,35 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.main-content {
+    margin-top: 16px;
+}
+
+.card {
+    margin-bottom: 16px;
+}
+.card-body {
+    padding-bottom: 0px;
+}
+
+.create-data-area-label {
+    width: 80px;
+}
+
+.history-area-header {
+    background-color: rgba(60,142,145,.6);
+}
+
+.chart-detail-area {
+    // background-color: lightgray;
+    margin: 16px;
+    padding: 0px;
+    // padding: 16px;
+}
+
+.chart-area {
+    // background-color: lightgray;
+    margin: 16px;
+    padding: 0px;
+    // padding: 16px;
+}
