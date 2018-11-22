@@ -14,6 +14,7 @@
 
 .create-data-area-label {
     width: 80px;
+    color: #62747b;
 }
 
 .history-area-header {
@@ -33,3 +34,36 @@
     padding: 0px;
     // padding: 16px;
 }
+
+
+#container {
+    display: grid;
+    margin: 16px 0px;
+    min-height: 100vh;
+    grid-template-rows: 500px 1fr;
+    grid-template-columns: 400px 1fr 400px;
+    grid-template-areas:
+        "nav    main   calendar-area "
+        "nav    main   side  ";
+}
+// body > * {
+//     margin: 3px;
+//     padding: 10px;
+// }
+// h1 {
+//     grid-area: title;
+// }
+main {
+    grid-area: main;
+}
+nav {
+    grid-area: nav;
+}
+#side {
+    grid-area: side;
+}
+#calendarArea {
+    grid-area: calendar-area;
+    margin: 0px 40px;
+}
+

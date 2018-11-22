@@ -12,9 +12,11 @@
  *
  */
 
+ 
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 @import "home";
+@import "fullcalendar";
 
 .top-header {
     background-color: #55c500;
@@ -22,4 +24,14 @@
     color: #ffffff;
     font-size: 1.2rem;
     height: 56px;
+}
+
+.input-siza-s {
+    width: 200px;
+}
+.input-siza-m {
+    width: 400px;
+}
+.input-siza-l {
+    width: 600px;
 }

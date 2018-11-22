@@ -26,3 +26,14 @@ $(document).on 'turbolinks:load', ->
 #     if (confirm("このデータを削除しますか？"))
 #         document.location = "/home/delete/" + id;
 #         return false;
+
+
+$(document).on 'turbolinks:load', ->
+  $('#calendar').fullCalendar {
+      height: 500
+  }
+  return
+
+$(document).on 'turbolinks:before-cache', ->
+  $('#calendar').empty()
+  return

@@ -7,17 +7,15 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
   </head>
 
   <body style="padding-top: 4.5rem;">
     <%= render template:"layouts/common_header" %>
-  <div class="container">
-
-    <%= yield %>
-
-    <hr size="1" color="#aaa">
-    <%= render template:"layouts/common_footer" %>
+    <div>
+      <%= yield %>
     </div>
+    <%= render template:"layouts/common_footer" %>
   </body>
 </html>
  

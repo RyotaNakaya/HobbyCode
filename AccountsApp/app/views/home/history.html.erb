@@ -1,22 +1,24 @@
-<h1>家計簿アプリ試作品(ヒストリー画面)</h1>
-<div class="main-content">
-    <div>■履歴</div>
-    <table class="table table-bordered">
-        <tr class="history-area-header">
-            <th>日付</th>
-            <th>カテゴリ</th>
-            <th>金額</th>
-            <th>備考</th>
-        </tr>
-        <% @allpostdata.each do |obj|%>
-        <tr>
-            <td class="history-data-date"><%= obj.date.strftime("%Y-%m-%d") %></td>
-            <td class="history-data-category"><%= obj.category %></td>
-            <td class="history-data-amount"><%= obj.amount %></td>
-            <td class="history-data-remark"><%= obj.remark %></td>
-            <td><button val="<%= obj.id %>" class="edit-data btn btn-primary">編集する</button></td>
-            <td><button val="<%= obj.id %>" class="del-data btn btn-danger">削除する</button></td>
-        </tr>
-        <% end %>
-    </table>
+<div class="container">
+    <h1>家計簿アプリ試作品(ヒストリー画面)</h1>
+    <div class="main-content">
+        <div>■履歴</div>
+        <table class="table table-bordered">
+            <tr class="history-area-header">
+                <th>日付</th>
+                <th>カテゴリ</th>
+                <th>金額</th>
+                <th>備考</th>
+            </tr>
+            <% @allpostdata.each do |obj|%>
+            <tr>
+                <td class="history-data-date"><%= obj.date.strftime("%Y-%m-%d") %></td>
+                <td class="history-data-category"><%= obj.category %></td>
+                <td class="history-data-amount"><%= obj.amount %></td>
+                <td class="history-data-remark"><%= obj.remark %></td>
+                <td><button val="<%= obj.id %>" class="edit-data btn btn-primary">編集する</button></td>
+                <td><button val="<%= obj.id %>" class="del-data btn btn-danger">削除する</button></td>
+            </tr>
+            <% end %>
+        </table>
+    </div>
 </div>
