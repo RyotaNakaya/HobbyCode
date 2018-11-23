@@ -1,0 +1,22 @@
+<div class="container">
+    <h1>家計簿アプリ試作品(カテゴリ設定画面)</h1>
+    <div class="main-content">
+        <div>■カテゴリ</div>
+        <table class="table table-bordered">
+            <tr class="history-area-header">
+                <th>大分類</th>
+                <th>小分類</th>
+            </tr>
+            <% @category.each do |obj|%>
+            <tr>
+                <td class="history-data-date">
+                    <%= obj.category1 %>
+                </td>
+                <td class="history-data-category">
+                    <%= obj.category2 %>
+                </td>
+            </tr>
+            <% end %>
+        </table>
+    </div>
+</div>

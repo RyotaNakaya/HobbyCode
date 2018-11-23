@@ -11,10 +11,18 @@
             </tr>
             <% @allpostdata.each do |obj|%>
             <tr>
-                <td class="history-data-date"><%= obj.date.strftime("%Y-%m-%d") %></td>
-                <td class="history-data-category"><%= obj.category %></td>
-                <td class="history-data-amount"><%= obj.amount %></td>
-                <td class="history-data-remark"><%= obj.remark %></td>
+                <td class="history-data-date">
+                    <%= obj.date.strftime("%Y-%m-%d") %>
+                </td>
+                <td class="history-data-category">
+                    <%= obj.category %>
+                </td>
+                <td class="history-data-amount">
+                    <%= obj.amount %>
+                </td>
+                <td class="history-data-remark">
+                    <%= obj.remark %>
+                </td>
                 <td><button val="<%= obj.id %>" class="edit-data btn btn-primary">編集する</button></td>
                 <td><button val="<%= obj.id %>" class="del-data btn btn-danger">削除する</button></td>
             </tr>

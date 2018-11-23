@@ -8,6 +8,7 @@
 .card {
     margin-bottom: 16px;
 }
+
 .card-body {
     padding-bottom: 0px;
 }
@@ -18,7 +19,7 @@
 }
 
 .history-area-header {
-    background-color: rgba(60,142,145,.6);
+    background-color: rgba(60, 142, 145, .6);
 }
 
 .chart-detail-area {
@@ -36,7 +37,7 @@
 }
 
 
-#container {
+#indexContainer {
     display: grid;
     margin: 16px 0px;
     min-height: 100vh;
@@ -46,6 +47,7 @@
         "nav    main   calendar-area "
         "nav    main   side  ";
 }
+
 // body > * {
 //     margin: 3px;
 //     padding: 10px;
@@ -56,14 +58,27 @@
 main {
     grid-area: main;
 }
+
 nav {
     grid-area: nav;
 }
+
 #side {
     grid-area: side;
 }
+
 #calendarArea {
     grid-area: calendar-area;
     margin: 0px 40px;
 }
 
+#historyContainer {
+    display: grid;
+    margin: 16px 0px;
+    min-height: 100vh;
+    grid-template-rows: 500px 1fr;
+    grid-template-columns: 400px 1fr 400px;
+    grid-template-areas:
+        "nav    main   calendar-area "
+        "nav    main   side  ";
+}

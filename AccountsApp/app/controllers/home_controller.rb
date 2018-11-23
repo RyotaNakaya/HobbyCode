@@ -10,7 +10,7 @@ class HomeController < ApplicationController
             date = Date.today
             show
             # @chart_data = [['食費', get_by_month(date)], ['日用雑貨', 65], ['交通費', 64], ['交際費', 34], ['エンタメ', 64], ['その他', 64]]
-            get_by_month(date)
+            get_chart_by_month(date)
         end
       end
 
@@ -18,16 +18,7 @@ class HomeController < ApplicationController
         @postdata = Postdatum.order("date DESC, created_at DESC").all.limit 5
     end
 
-    # def get_by_monthaaa(d)
-    #     amount = 0
-    #     food = Postdatum.where(date: d.beginning_of_month..d.end_of_month).where(category: "食費")
-    #     for obj in food do
-    #         amount += obj.amount
-    #     end
-    #     return amount
-    # end
-
-    def get_by_month(d)
+    def get_chart_by_month(d)
         # ToDo カテゴリマスタを作ってマスタから取得する
         category_mst = ["食費", "日用雑貨", "交通費", "交際費", "エンタメ", "その他"]
         @chart_datas = Array.new
