@@ -8,8 +8,8 @@ class HomeController < ApplicationController
             @title = "家計簿ホーム"
             @newpostdata = Postdatum.new
             date = Date.today
+            @ctg_array = CategoryConfigController.get_category_array
             show
-            # @chart_data = [['食費', get_by_month(date)], ['日用雑貨', 65], ['交通費', 64], ['交際費', 34], ['エンタメ', 64], ['その他', 64]]
             get_chart_by_month(date)
         end
       end
@@ -19,7 +19,7 @@ class HomeController < ApplicationController
     end
 
     def get_chart_by_month(d)
-        # ToDo カテゴリマスタを作ってマスタから取得する
+        # ToDo カテゴリマスタから取得する
         category_mst = ["食費", "日用雑貨", "交通費", "交際費", "エンタメ", "その他"]
         @chart_datas = Array.new
         all_postdata = Postdatum.where(date: d.beginning_of_month..d.end_of_month)
