@@ -8,7 +8,16 @@ class HomeController < ApplicationController
             @title = "家計簿ホーム"
             @newpostdata = Postdatum.new
             date = Date.today
-            @ctg_array = CategoryConfigController.get_category_array
+            @ctg_grp_array = CategoryConfigController.get_category_grp_array
+            all_ctg = CategoryConfigController.get_all_category
+            def_ctg_grp_id =  CategoryConfigController.get_all_category_grp[0].id
+            @ctg_array = CategoryConfigController.get_category_array(def_ctg_grp_id)
+            # @ctg_array = Array.new
+            # for obj in all_ctg do
+            #     if (obj.category_grp_id == def_ctg_grp_id)
+            #         @ctg_array.push(Array.new([obj.category_name, obj.id]))
+            #     end
+            # end
             show
             get_chart_by_month(date)
         end
@@ -69,6 +78,13 @@ class HomeController < ApplicationController
         obj = Postdatum.find(params[:id])
         obj.destroy
         redirect_to "/home/history"
+    end
+
+    # Ajax処理を行う処理
+    def change_ctg
+        # render partial: 'select_city', locals: {prefecture_id: params[:prefecture_id]}
+        # render json: self.get_category_array(data)
+        @ctg_array = get_category_array(params[:ctg_grp_id])
     end
 
     private

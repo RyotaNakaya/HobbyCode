@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   patch "home/edit/:id", to: "home#update"
   get "home/delete/:id", to: "home#delete"
   get "category/index", to: 'category_config#index'
+  post "home/change_ctg", to: 'home#change_ctg'
 end

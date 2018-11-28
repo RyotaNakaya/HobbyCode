@@ -37,3 +37,15 @@ $(document).on 'turbolinks:load', ->
 $(document).on 'turbolinks:before-cache', ->
   $('#calendar').empty()
   return
+
+$(document).on 'change', '#ctg_grp_select', ->
+  $.ajax(
+    type: 'POST'
+    url: '/home/change_ctg'
+    data: {
+      ctg_grp_id: $(this).val()
+    }
+  ).done (data) ->
+    alert("success!")
+    # $('#ctg_grp_select').html('<%= j(options_for_select(@ctg_array.pluck(:name, :id))) %>');
+    # $('.city-area').html(data)

@@ -10,14 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_23_053952) do
+ActiveRecord::Schema.define(version: 2018_11_28_110147) do
 
-  create_table "categories", force: :cascade do |t|
-    t.string "category1"
-    t.string "category2"
-    t.string "string"
+  create_table "category_configs", force: :cascade do |t|
+    t.integer "category_no"
+    t.string "category_name"
+    t.integer "category_grp_id"
     t.integer "disp_order"
-    t.string "user_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "category_grps", force: :cascade do |t|
+    t.string "category_grp_name"
+    t.integer "disp_order"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
