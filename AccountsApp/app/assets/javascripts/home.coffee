@@ -39,13 +39,16 @@ $(document).on 'turbolinks:before-cache', ->
   return
 
 $(document).on 'change', '#ctg_grp_select', ->
-  $.ajax(
-    type: 'POST'
-    url: '/home/change_ctg'
-    data: {
-      ctg_grp_id: $(this).val()
-    }
-  ).done (data) ->
-    alert("success!")
-    # $('#ctg_grp_select').html('<%= j(options_for_select(@ctg_array.pluck(:name, :id))) %>');
-    # $('.city-area').html(data)
+  $.ajax
+    type: 'get'
+    url: '/change_ctg'
+    data: ctg_grp_id: $(this).val()
+    success: (result) ->
+        console.log(result)
+        $('#postdatum_category').html("")
+        $.each result.ctg_array, ->
+            console.log(this)
+            option = $('<option>').text(this[0]).val(this[1])
+            $('#postdatum_category').append(option)
+
+  

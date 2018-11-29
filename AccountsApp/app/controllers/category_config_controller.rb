@@ -45,12 +45,5 @@ class CategoryConfigController < ApplicationController
     return ctg_grp_array
   end
 
-  # Ajax処理を行う処理
-  def change_ctg
-    # render partial: 'select_city', locals: {prefecture_id: params[:prefecture_id]}
-    # render json: self.get_category_array(data)
-    @ctg_array = get_category_array(params[:ctg_grp_id])
-  end
-
 
 end

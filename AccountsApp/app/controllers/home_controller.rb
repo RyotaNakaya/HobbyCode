@@ -80,11 +80,10 @@ class HomeController < ApplicationController
         redirect_to "/home/history"
     end
 
-    # Ajax処理を行う処理
+    # Ajax処理でカテゴリを取得する
     def change_ctg
-        # render partial: 'select_city', locals: {prefecture_id: params[:prefecture_id]}
-        # render json: self.get_category_array(data)
-        @ctg_array = get_category_array(params[:ctg_grp_id])
+        @ctg_array = CategoryConfigController.get_category_array(params[:ctg_grp_id].to_i)
+        render json: { ctg_array: @ctg_array}
     end
 
     private
