@@ -22,22 +22,19 @@ $(document).on 'turbolinks:load', ->
         window.location = "/home/history/"
         return false;
 
-# window.delData = (id) ->
-#     if (confirm("このデータを削除しますか？"))
-#         document.location = "/home/delete/" + id;
-#         return false;
 
 
+# カレンダーの描画
 $(document).on 'turbolinks:load', ->
   $('#calendar').fullCalendar {
       height: 500
   }
   return
-
 $(document).on 'turbolinks:before-cache', ->
   $('#calendar').empty()
   return
 
+# カテゴリ変更時のajax処理
 $(document).on 'change', '#ctg_grp_select', ->
   $.ajax
     type: 'get'
@@ -50,5 +47,11 @@ $(document).on 'change', '#ctg_grp_select', ->
             console.log(this)
             option = $('<option>').text(this[0]).val(this[1])
             $('#postdatum_category').append(option)
+
+$(document).on 'turbolinks:load', ->
+    $("#postdatum_category").on "change", ->
+        val = $("#postdatum_category").val()
+        debugger
+        $("#postdatum_category_id").val(val)
 
   

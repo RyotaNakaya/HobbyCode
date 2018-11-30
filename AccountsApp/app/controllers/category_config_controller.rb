@@ -3,11 +3,11 @@ class CategoryConfigController < ApplicationController
 
   def index
     @title = "家計簿ホーム"
-    @category = CategoryConfig.order("disp_order ASC").all
+    @category = Category.order("disp_order ASC").all
   end
 
   def self.get_all_category
-    ctg = CategoryConfig.all
+    ctg = Category.all
     return ctg
   end
 
@@ -17,7 +17,7 @@ class CategoryConfigController < ApplicationController
   end
 
   def self.get_category_array
-    ctg = CategoryConfig.order("disp_order ASC").all
+    ctg = Category.order("disp_order ASC").all
     ctg_array = Array.new
     for obj in ctg do
       ctg_array.push(Array.new([obj.category_name, obj.id]))
@@ -26,7 +26,7 @@ class CategoryConfigController < ApplicationController
   end
 
   def self.get_category_array(ctg_grp_id)
-    all_ctg = CategoryConfig.order("disp_order ASC").all
+    all_ctg = Category.order("disp_order ASC").all
     ctg_array = Array.new
     for obj in all_ctg do
       if (obj.category_grp_id == ctg_grp_id)

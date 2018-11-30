@@ -4,16 +4,16 @@
         <div>■カテゴリ</div>
         <table class="table table-bordered">
             <tr class="history-area-header">
-                <th>大分類</th>
-                <th>小分類</th>
+                <th>カテゴリ</th>
+                <th>サブカテゴリ</th>
             </tr>
             <% @category.each do |obj|%>
             <tr>
-                <td class="history-data-date">
-                    <%= obj.category1 %>
+                <td class="">
+                    <%= obj.category_grp.category_grp_name %>
                 </td>
-                <td class="history-data-category">
-                    <%= obj.category2 %>
+                <td class="">
+                    <%= obj.category_name %>
                 </td>
             </tr>
             <% end %>

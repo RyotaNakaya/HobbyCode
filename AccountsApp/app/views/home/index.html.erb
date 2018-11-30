@@ -12,8 +12,12 @@
                             <%= select "", "ctg_grp_select", @ctg_grp_array, {}, class:"form-control input-size-s" %>
                         </div>
                         <div class="form-group" style="float: left; margin-right: 16px;">
-                            <label class="create-data-area-label">　</label>
+                            <label class="create-data-area-label">サブカテゴリ</label>
                             <%= form.select :category, @ctg_array, {},  class: "form-control input-size-s"  %>
+                        </div>
+                        <div class="form-group" style="float: left; margin-right: 16px; display:none;">
+                            <label class="create-data-area-label">サブカテゴリID</label>
+                            <%= form.number_field :category_id, :class => "form-control input-size-s" %>
                         </div>
                         <div class="form-group" style="float: left; margin-right: 16px;">
                             <label class="create-data-area-label">金額</label>
@@ -38,12 +42,13 @@
 
 
             <div class="card">
-                <div class="card-header bg-info">■入力履歴(最新5件)</div>
+                <div class="card-header bg-warning">■入力履歴(最新5件)</div>
                 <div class="card-body">
                     <table class="table table-bordered">
                         <tr class="history-area-header">
                             <th>日付</th>
                             <th>カテゴリ</th>
+                            <th>サブカテゴリ</th>
                             <th>金額</th>
                             <th>備考</th>
                         </tr>
@@ -51,6 +56,9 @@
                         <tr>
                             <td class="history-data-date">
                                 <%= obj.date.strftime("%Y-%m-%d") %>
+                            </td>
+                            <td class="history-data-category-grp">
+                                <%= obj.category %>
                             </td>
                             <td class="history-data-category">
                                 <%= obj.category %>

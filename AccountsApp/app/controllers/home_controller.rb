@@ -25,6 +25,15 @@ class HomeController < ApplicationController
 
     def show
         @postdata = Postdatum.order("date DESC, created_at DESC").all.limit 5
+        # @postdata.each do |data|
+        #     puts "#{data.date}"
+        #     puts "#{data.category_id}"
+        #     puts "#{data.category.category_name}"
+        # end
+        # puts "#@postdata"
+        # Category.joins(:postdatum).select("postdata.*, categories.*").each do |postdata|
+        #     puts "#{postdata.category} : #{postdata.category_id}"
+        # end
     end
 
     def get_chart_by_month(d)
@@ -58,7 +67,8 @@ class HomeController < ApplicationController
 
     def create
         if request.post? then
-          Postdatum.create(newpostdata_params)
+            puts newpostdata_params
+            Postdatum.create(newpostdata_params)
         end
         goback
     end
