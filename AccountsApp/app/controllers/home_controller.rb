@@ -8,16 +8,11 @@ class HomeController < ApplicationController
             @title = "家計簿ホーム"
             @newpostdata = Postdatum.new
             date = Date.today
-            @ctg_grp_array = CategoryConfigController.get_category_grp_array
-            all_ctg = CategoryConfigController.get_all_category
-            def_ctg_grp_id =  CategoryConfigController.get_all_category_grp[0].id
-            @ctg_array = CategoryConfigController.get_category_array(def_ctg_grp_id)
-            # @ctg_array = Array.new
-            # for obj in all_ctg do
-            #     if (obj.category_grp_id == def_ctg_grp_id)
-            #         @ctg_array.push(Array.new([obj.category_name, obj.id]))
-            #     end
-            # end
+            @ctg_array = CategoryConfigController.get_category_array
+            # def_ctg_grp_id =  CategoryConfigController.get_all_category_grp[0].id
+            puts @ctg_array
+            def_ctg_id =  @ctg_array[0][1]
+            @sub_ctg_array = CategoryConfigController.get_sub_category_array(def_ctg_id)
             show
             get_chart_by_month(date)
         end
@@ -92,7 +87,7 @@ class HomeController < ApplicationController
 
     # Ajax処理でカテゴリを取得する
     def change_ctg
-        @ctg_array = CategoryConfigController.get_category_array(params[:ctg_grp_id].to_i)
+        @ctg_array = CategoryConfigController.get_sub_category_array(params[:ctg_id].to_i)
         render json: { ctg_array: @ctg_array}
     end
 

@@ -39,7 +39,7 @@ $(document).on 'change', '#ctg_grp_select', ->
   $.ajax
     type: 'get'
     url: '/change_ctg'
-    data: ctg_grp_id: $(this).val()
+    data: ctg_id: $(this).val()
     success: (result) ->
         console.log(result)
         $('#postdatum_category').html("")
