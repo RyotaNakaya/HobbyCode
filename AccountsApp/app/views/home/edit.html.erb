@@ -7,7 +7,15 @@
                 <%= form_for(@postdata, url:{controller:"home", action:"update"}) do |form| %>
                 <div class="form-group form-inline">
                     <label class="create-data-area-label">カテゴリ</label>
-                    <%= form.select :category, [["食費", "食費"], ["日用雑貨", "日用雑貨"], ["交通費", "交通費"], ["交際費", "交際費"], ["エンタメ", "エンタメ"], ["その他", "その他"]], {},  class: "form-control"  %>
+                    <%= select "", "ctg_select", @ctg_array, {:selected => @selected_ctg_id}, class:"form-control input-size-s" %>
+                </div>
+                <div class="form-group form-inline">
+                    <label class="create-data-area-label">サブカテゴリ</label>
+                    <%= select "", "sub_ctg_select", @sub_ctg_array, {:selected => @selected_sub_ctg_id},  class: "form-control input-size-s"  %>
+                </div>
+                <div class="form-group" style="display:none;">
+                    <label class="create-data-area-label">サブカテゴリID</label>
+                    <%= form.number_field :category_id, :class => "form-control input-size-s" %>
                 </div>
                 <div class="form-group form-inline">
                     <label class="create-data-area-label">金額</label>
@@ -19,11 +27,11 @@
                 </div>
                 <div class="form-group form-inline">
                     <label class="create-data-area-label">備考</label>
-                    <%= form.text_field :remark, :class => "form-control" %>
+                    <%= form.text_area :remark, :class => "form-control", size: "70x2"  %>
                 </div>
                 <div class="form-group form-inline">
                     <label class="create-data-area-label"></label>
-                    <%= form.submit "保存する", :class => "btn btn-primary" %>
+                    <%= form.submit "保存する", :class => "btn btn-primary", :style =>"margin-right: 16px" %>
                     <button class="update-cancel btn btn-danger">キャンセル</button>
                 </div>
                 <% end %>

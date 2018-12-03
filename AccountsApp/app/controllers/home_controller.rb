@@ -9,27 +9,17 @@ class HomeController < ApplicationController
             @newpostdata = Postdatum.new
             date = Date.today
             @ctg_array = CategoryConfigController.get_category_array
-            # def_ctg_grp_id =  CategoryConfigController.get_all_category_grp[0].id
-            puts @ctg_array
             def_ctg_id =  @ctg_array[0][1]
             @sub_ctg_array = CategoryConfigController.get_sub_category_array(def_ctg_id)
-            @def_sub_ctg_id = @sub_ctg_array[0][1]
-            show
+            # @def_sub_ctg_id = @sub_ctg_array[0][1]
             get_chart_by_month(date)
+            show
         end
       end
 
     def show
         @postdata = Postdatum.order("date DESC, created_at DESC").all.limit 5
-        # @postdata.each do |data|
-        #     puts "#{data.date}"
-        #     puts "#{data.category_id}"
-        #     puts "#{data.category.category_name}"
-        # end
-        # puts "#@postdata"
-        # Category.joins(:postdatum).select("postdata.*, categories.*").each do |postdata|
-        #     puts "#{postdata.category} : #{postdata.category_id}"
-        # end
+        # CategoryConfigController.get_category_with_parent(@postdata)
     end
 
     def get_chart_by_month(d)
@@ -82,6 +72,10 @@ class HomeController < ApplicationController
     def edit
         @title = "家計簿修正"
         @postdata = Postdatum.find(params[:id])
+        @selected_sub_ctg_id = @postdata.category_id
+        @selected_ctg_id = CategoryConfigController.get_parent_category_id(@selected_sub_ctg_id).parent_id
+        @ctg_array = CategoryConfigController.get_category_array
+        @sub_ctg_array = CategoryConfigController.get_sub_category_array(@selected_ctg_id)
     end
     
     def update
