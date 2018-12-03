@@ -13,6 +13,7 @@ class HomeController < ApplicationController
             puts @ctg_array
             def_ctg_id =  @ctg_array[0][1]
             @sub_ctg_array = CategoryConfigController.get_sub_category_array(def_ctg_id)
+            @def_sub_ctg_id = @sub_ctg_array[0][1]
             show
             get_chart_by_month(date)
         end
@@ -32,26 +33,36 @@ class HomeController < ApplicationController
     end
 
     def get_chart_by_month(d)
-        # ToDo カテゴリマスタから取得する
-        category_mst = ["食費", "日用雑貨", "交通費", "交際費", "エンタメ", "その他"]
         @chart_datas = Array.new
+        ctg_mst = CategoryConfigController.get_all_category
+        sub_ctg_mst = CategoryConfigController.get_all_sub_category
         all_postdata = Postdatum.where(date: d.beginning_of_month..d.end_of_month)
         all_amounts = Postdatum.where(date: d.beginning_of_month..d.end_of_month).sum("amount")
-        for category in category_mst do
-            category = category
-            chart_data = Array.new
-            amount_by_category = 0
-            # amount_by_category = Postdatum.where(date: d.beginning_of_month..d.end_of_month).where(category: "" + category + "").sum("amount")
-            for obj in all_postdata do
-                if (obj.category == category)
-                    amount_by_category += obj.amount
+        if (all_amounts.to_f != 0)
+            for ctg in ctg_mst do
+                category_id = ctg.id
+                puts "カテゴリIDは"
+                puts category_id
+                chart_data = Array.new
+                amount_by_category = 0
+                for obj in all_postdata do
+                    puts "ポストデータのカテゴリIDは"
+                    puts obj.category_id
+                    parent_id = CategoryConfigController.get_parent_category_id(obj.category_id).parent_id
+                    puts "取得した親はID"
+                    puts parent_id
+                    if (parent_id == category_id)
+                        amount_by_category += obj.amount
+                    end
                 end
-            end
 
-            rate = (amount_by_category / all_amounts.to_f).round(2) * 100
-            @chart_datas.push(chart_data.push(category, amount_by_category, rate))
+                rate = (amount_by_category / all_amounts.to_f).round(2) * 100
+                @chart_datas.push(chart_data.push(ctg.ctg_name, amount_by_category, rate))
+            end
+            return @chart_datas
+        else 
+            # return false
         end
-        return @chart_datas
     end
 
 
@@ -97,11 +108,11 @@ class HomeController < ApplicationController
     end
 
     def newpostdata_params
-        params.require(:postdatum).permit(:category, :amount, :date, :remark)
+        params.require(:postdatum).permit(:category_id, :amount, :date, :remark)
     end
 
     def postdata_params
-        params.require(:postdatum).permit(:category, :amount, :date, :remark)
+        params.require(:postdatum).permit(:category_id, :amount, :date, :remark)
     end
 
 end

@@ -16,10 +16,10 @@ class CategoryConfigController < ApplicationController
     return ctg
   end
 
-  # def self.get_all_category_grp
-  #   ctg_grp = CategoryGrp.all
-  #   return ctg_grp
-  # end
+  def self.get_parent_category_id(sub_ctg_id)
+    parent_id = Category.select("parent_id").find(sub_ctg_id)
+    return parent_id
+  end
 
   def self.get_category_array
     ctg = Category.where("sub_flg=?", 0).order("disp_order ASC").all
