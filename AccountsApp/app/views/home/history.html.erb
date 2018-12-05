@@ -2,7 +2,15 @@
     <h1>家計簿アプリ試作品(ヒストリー画面)</h1>
     <div class="main-content">
         <div>■履歴</div>
-        <table class="table table-bordered">
+        <div>
+            <button class="btn btn-default"><i class="fas fa-angle-left"></i></button>
+            <%= @year %>
+            年
+            <%= @month %>
+            月
+            <button class="btn btn-default"><i class="fas fa-angle-right"></i></button>
+        </div>
+        <table class="table">
             <tr class="history-area-header">
                 <th>日付</th>
                 <th>カテゴリ</th>

@@ -13,13 +13,56 @@ class HomeController < ApplicationController
             @sub_ctg_array = CategoryConfigController.get_sub_category_array(def_ctg_id)
             # @def_sub_ctg_id = @sub_ctg_array[0][1]
             get_chart_by_month(date)
-            show
+            @postdata = show
         end
       end
 
     def show
-        @postdata = Postdatum.order("date DESC, created_at DESC").all.limit 5
+        postdata = Postdatum.order("date DESC, created_at DESC").all.limit 5
         # CategoryConfigController.get_category_with_parent(@postdata)
+        return postdata
+    end
+
+    def show_by_month(y, m)
+        postdata = Postdatum.where("strftime('%Y', date) = ? AND strftime('%m', date) = ?", y.to_s, m.to_s).order("date DESC, created_at DESC")
+        return postdata
+    end
+
+    def history
+        @title = "家計簿履歴"
+        @year_month = Date.today.strftime("%Y-%m")
+        @year = Date.today.strftime("%Y")
+        @month = Date.today.strftime("%m")
+        @allpostdata = show_by_month(@year, @month)
+    end
+    
+    def create
+        if request.post? then
+            puts newpostdata_params
+            Postdatum.create(newpostdata_params)
+        end
+        goback
+    end
+    
+    def edit
+        @title = "家計簿修正"
+        @postdata = Postdatum.find(params[:id])
+        @selected_sub_ctg_id = @postdata.category_id
+        @selected_ctg_id = CategoryConfigController.get_parent_category_id(@selected_sub_ctg_id).parent_id
+        @ctg_array = CategoryConfigController.get_category_array
+        @sub_ctg_array = CategoryConfigController.get_sub_category_array(@selected_ctg_id)
+    end
+    
+    def update
+        obj = Postdatum.find(params[:id])
+        obj.update(postdata_params)
+        redirect_to "/home/history"
+    end
+    
+    def delete
+        obj = Postdatum.find(params[:id])
+        obj.destroy
+        redirect_to "/home/history"
     end
 
     def get_chart_by_month(d)
@@ -56,57 +99,23 @@ class HomeController < ApplicationController
     end
 
 
-    def history
-        @title = "家計簿履歴"
-        @allpostdata = Postdatum.order("date DESC, created_at DESC").all
-    end
-
-    def create
-        if request.post? then
-            puts newpostdata_params
-            Postdatum.create(newpostdata_params)
-        end
-        goback
-    end
-
-    def edit
-        @title = "家計簿修正"
-        @postdata = Postdatum.find(params[:id])
-        @selected_sub_ctg_id = @postdata.category_id
-        @selected_ctg_id = CategoryConfigController.get_parent_category_id(@selected_sub_ctg_id).parent_id
-        @ctg_array = CategoryConfigController.get_category_array
-        @sub_ctg_array = CategoryConfigController.get_sub_category_array(@selected_ctg_id)
-    end
-    
-    def update
-        obj = Postdatum.find(params[:id])
-        obj.update(postdata_params)
-        redirect_to "/home/history"
-    end
-    
-    def delete
-        obj = Postdatum.find(params[:id])
-        obj.destroy
-        redirect_to "/home/history"
-    end
-
     # Ajax処理でカテゴリを取得する
     def change_ctg
         @ctg_array = CategoryConfigController.get_sub_category_array(params[:ctg_id].to_i)
         render json: { ctg_array: @ctg_array}
     end
-
+    
     private
     def goback
         redirect_to("/home/index")
     end
-
+    
     def newpostdata_params
         params.require(:postdatum).permit(:category_id, :amount, :date, :remark)
     end
-
+    
     def postdata_params
         params.require(:postdatum).permit(:category_id, :amount, :date, :remark)
     end
-
+    
 end
