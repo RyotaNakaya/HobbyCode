@@ -1,15 +1,15 @@
 <div class="container">
     <h1>家計簿アプリ試作品(ヒストリー画面)</h1>
     <div class="main-content">
-        <div>■履歴</div>
-        <div>
-            <button class="btn btn-default"><i class="fas fa-angle-left"></i></button>
+        <%# <div>■履歴</div> %>
+        <h2>
+            <button class="btn btn-default btn-sm chang-emonth" id="prev_month"><i class="fas fa-angle-left"></i></button>
             <%= @year %>
             年
             <%= @month %>
             月
-            <button class="btn btn-default"><i class="fas fa-angle-right"></i></button>
-        </div>
+            <button class="btn btn-default btn-sm chang-emonth" id="next_month"><i class="fas fa-angle-right"></i></button>
+        </h2>
         <table class="table">
             <tr class="history-area-header">
                 <th>日付</th>

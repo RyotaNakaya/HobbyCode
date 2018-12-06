@@ -18,7 +18,7 @@ class HomeController < ApplicationController
       end
 
     def show
-        postdata = Postdatum.order("date DESC, created_at DESC").all.limit 5
+        postdata = Postdatum.order("created_at DESC").all.limit 5
         # CategoryConfigController.get_category_with_parent(@postdata)
         return postdata
     end

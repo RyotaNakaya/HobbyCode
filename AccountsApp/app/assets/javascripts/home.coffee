@@ -57,9 +57,19 @@ $(document).on 'turbolinks:load', ->
         debugger
         $("#postdatum_category_id").val(Number(val))
 
-# 画面初期描画時のサブカテゴリIDセット処理(やっつけ。HTMLでvalueを指定しとくとなぜかjsからの更新がかからない)
+# 画面初期描画時のサブカテゴリIDセット処理(やっつけ。HTMLでvalueを指定しとくとなぜかjsからの更新が反映されない)
 $(document).on 'ready page:load', ->
         val = $("#sub_ctg_select").val()
         $("#postdatum_category_id").val(Number(val))
+
+# 月のチェンジファンクション
+$(document).on 'turbolinks:load', ->
+    $(".chang-emonth").on "click", ->
+        if ($(this).attr(id) == "prev_month")
+            this_m = ""
+            prev_m = ""
+        else if ($(this).attr(id) == "next_month")
+            next_m = ""
+ 
 
   
