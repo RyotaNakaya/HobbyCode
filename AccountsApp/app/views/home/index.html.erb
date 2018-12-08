@@ -1,6 +1,6 @@
 <div id="indexContainer">
     <main>
-        <h1>家計簿アプリ試作品</h1>
+        <h1>家計簿</h1>
         <div class="main-content">
             <div class="card">
                 <div class="card-header bg-info">■新規記帳</div>
@@ -76,18 +76,25 @@
                 </div>
             </div>
 
-            <div>
-                <div class="row">
-                    <div class="col-sm-5 col-lg-5 chart-area card">
-                        <div class="card-header bg-warning">カテゴリ別チャート</div>
-                        <div class="card-body">
+            <div class="card">
+                <div class="card-header bg-warning">カテゴリ別チャート</div>
+                <div class="card-body">
+                    <h2>
+                        <button class="btn btn-default btn-sm change-month" id="prev_month"><i class="fas fa-angle-left"></i></button>
+                        <span class="this-year">
+                            <%= @year %></span>
+                        <span>年</span>
+                        <span class="this-month">
+                            <%= @month %></span>
+                        <span>月</span>
+                        <button class="btn btn-default btn-sm change-month" id="next_month"><i class="fas fa-angle-right"></i></button>
+                    </h2>
+                    <div class="row">
+                        <div class="col-sm-5 col-lg-5 chart-area">
                             <!--描画領域 -->
                             <%= pie_chart @chart_datas %>
                         </div>
-                    </div>
-                    <div class="col-sm-5 col-lg-5 chart-detail-area card">
-                        <div class="card-header bg-warning">カテゴリ別集計</div>
-                        <div class="card-body">
+                        <div class="col-sm-5 col-lg-5 chart-detail-area">
                             <table class="table table-bordered">
                                 <tr>
                                     <th>カテゴリ</th>
@@ -110,7 +117,6 @@
                     </div>
                 </div>
             </div>
-        </div>
     </main>
     <nav></nav>
     <aside id="calendarArea">

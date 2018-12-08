@@ -43,4 +43,4 @@
 # Category.create(ctg_name:"受験料", sub_flg: 1, disp_order: 4, parent_id:76)
 # Category.create(ctg_name:"学費", sub_flg: 1, disp_order: 5, parent_id:76)
 
-Postdatum.delete_all
+# Postdatum.delete_all

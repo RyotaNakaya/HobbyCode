@@ -63,13 +63,28 @@ $(document).on 'ready page:load', ->
         $("#postdatum_category_id").val(Number(val))
 
 # 月のチェンジファンクション
-$(document).on 'turbolinks:load', ->
-    $(".chang-emonth").on "click", ->
-        if ($(this).attr(id) == "prev_month")
-            this_m = ""
-            prev_m = ""
-        else if ($(this).attr(id) == "next_month")
-            next_m = ""
- 
+# $(document).on 'turbolinks:load', ->
+#     $(".change-month").on "click", ->
+#         if ($(this).attr("id") == "prev_month")
+#             debugger
+#             this_y = $(".this-year").get(0).innerText
+#             this_m = $(".this-month").get(0).innerText
+#             alert(this_y+this_m)
+#         else if ($(this).attr("id") == "next_month")
+#             next_m = ""
+
+# 月のチェンジファンクション
+$(document).on 'click', '.change-month', ->
+  $.ajax
+    type: 'get'
+    url: '/change_month'
+    data: {
+        vector: $(this).attr("id"), 
+        year: $(".this-year").get(0).innerText, 
+        month: $(".this-month").get(0).innerText
+        }
+    success: (result) ->
+        debugger
+        console.log(result)
 
   

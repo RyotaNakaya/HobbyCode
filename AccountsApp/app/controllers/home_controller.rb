@@ -8,6 +8,8 @@ class HomeController < ApplicationController
             @title = "家計簿ホーム"
             @newpostdata = Postdatum.new
             date = Date.today
+            @year = Date.today.strftime("%Y")
+            @month = Date.today.strftime("%m")
             @ctg_array = CategoryConfigController.get_category_array
             def_ctg_id =  @ctg_array[0][1]
             @sub_ctg_array = CategoryConfigController.get_sub_category_array(def_ctg_id)
@@ -30,7 +32,7 @@ class HomeController < ApplicationController
 
     def history
         @title = "家計簿履歴"
-        @year_month = Date.today.strftime("%Y-%m")
+        # @year_month = Date.today.strftime("%Y-%m")
         @year = Date.today.strftime("%Y")
         @month = Date.today.strftime("%m")
         @allpostdata = show_by_month(@year, @month)
@@ -89,7 +91,7 @@ class HomeController < ApplicationController
                     end
                 end
 
-                rate = (amount_by_category / all_amounts.to_f).round(2) * 100
+                rate = ((amount_by_category / all_amounts.to_f) * 100).round(2)
                 @chart_datas.push(chart_data.push(ctg.ctg_name, amount_by_category, rate))
             end
             return @chart_datas
@@ -103,6 +105,32 @@ class HomeController < ApplicationController
     def change_ctg
         @ctg_array = CategoryConfigController.get_sub_category_array(params[:ctg_id].to_i)
         render json: { ctg_array: @ctg_array}
+    end
+
+    # Ajax処理で月の変更後の結果を取得する
+    def change_month
+        v = params[:vector]
+        y = params[:year].to_i
+        m = params[:month].to_i
+        if (v == "prev_month")
+            new_y = y
+            new_m = m-1
+            if (new_m == 0)
+                new_y = y-1
+                new_m = 12
+            end
+        else (v == "next_month")
+            new_y = y
+            new_m = m+1
+            if (new_m == 13)
+                new_y = y+1
+                new_m = 1
+            end
+        end
+        @allpostdata = show_by_month(new_y, new_m)
+        @year = new_y
+        @month = new_m
+        render json: { allpostdata: @allpostdata}
     end
     
     private
