@@ -3,8 +3,6 @@ class HomeController < ApplicationController
     layout "home"
 
     def index
-        if request.post? then
-        else
             @title = "家計簿ホーム"
             @newpostdata = Postdatum.new
             date = Date.today
@@ -14,10 +12,9 @@ class HomeController < ApplicationController
             def_ctg_id =  @ctg_array[0][1]
             @sub_ctg_array = CategoryConfigController.get_sub_category_array(def_ctg_id)
             # @def_sub_ctg_id = @sub_ctg_array[0][1]
-            get_chart_by_month(date)
+            get_chart_by_month(@year, @month)
             @postdata = show
-        end
-      end
+    end
 
     def show
         postdata = Postdatum.order("created_at DESC").all.limit 5
@@ -67,25 +64,27 @@ class HomeController < ApplicationController
         redirect_to "/home/history"
     end
 
-    def get_chart_by_month(d)
+    def get_chart_by_month(y, m)
         @chart_datas = Array.new
         ctg_mst = CategoryConfigController.get_all_category
         sub_ctg_mst = CategoryConfigController.get_all_sub_category
-        all_postdata = Postdatum.where(date: d.beginning_of_month..d.end_of_month)
-        all_amounts = Postdatum.where(date: d.beginning_of_month..d.end_of_month).sum("amount")
+        # all_postdata = Postdatum.where(date: d.beginning_of_month..d.end_of_month)
+        all_postdata = Postdatum.where("strftime('%Y', date) = ? AND strftime('%m', date) = ?", y.to_s, m.to_s)
+        all_amounts = Postdatum.where("strftime('%Y', date) = ? AND strftime('%m', date) = ?", y.to_s, m.to_s).sum("amount")
+
         if (all_amounts.to_f != 0)
             for ctg in ctg_mst do
                 category_id = ctg.id
-                puts "カテゴリIDは"
-                puts category_id
+                # puts "カテゴリIDは"
+                # puts category_id
                 chart_data = Array.new
                 amount_by_category = 0
                 for obj in all_postdata do
-                    puts "ポストデータのカテゴリIDは"
-                    puts obj.category_id
+                    # puts "ポストデータのカテゴリIDは"
+                    # puts obj.category_id
                     parent_id = CategoryConfigController.get_parent_category_id(obj.category_id).parent_id
-                    puts "取得した親はID"
-                    puts parent_id
+                    # puts "取得した親はID"
+                    # puts parent_id
                     if (parent_id == category_id)
                         amount_by_category += obj.amount
                     end
@@ -96,8 +95,10 @@ class HomeController < ApplicationController
             end
             return @chart_datas
         else 
-            # return false
+            # return false#データが0件だった時の処理
         end
+
+        render
     end
 
 
@@ -109,9 +110,43 @@ class HomeController < ApplicationController
 
     # Ajax処理で月の変更後の結果を取得する
     def change_month
-        v = params[:vector]
-        y = params[:year].to_i
-        m = params[:month].to_i
+        # v = params[:vector]
+        # y = params[:year].to_i
+        # m = params[:month].to_i
+        v = params[:button]
+        y = params[:this_year].to_i
+        m = params[:this_month].to_i
+        # ここで変更後の月と年を取得
+        after_data = get_after_month(v, y, m)
+
+        @year = after_data[:year]
+        @month = after_data[:month]
+        @allpostdata = show_by_month(@year, @month)
+        # render json: { allpostdata: @allpostdata, new_y: new_y, new_m: new_m}
+        # render partial: 'history_insert', json: { allpostdata: @allpostdata, new_y: new_y, new_m: new_m}
+        render
+    end
+    
+    # Ajax処理で月の変更後のグラフ結果を取得する
+    def change_month_chart
+        v = params[:button]
+        y = params[:this_year].to_i
+        m = params[:this_month].to_i
+        # ここで変更後の月と年を取得
+        after_data = get_after_month(v, y, m)
+
+        @year = after_data[:year]
+        @month = after_data[:month]
+        @chart_datas = get_chart_by_month(@year, @month)
+        render
+    end
+
+    private
+    def goback
+        redirect_to("/home/index")
+    end
+
+    def get_after_month(v, y, m)
         if (v == "prev_month")
             new_y = y
             new_m = m-1
@@ -127,15 +162,7 @@ class HomeController < ApplicationController
                 new_m = 1
             end
         end
-        @allpostdata = show_by_month(new_y, new_m)
-        @year = new_y
-        @month = new_m
-        render json: { allpostdata: @allpostdata}
-    end
-    
-    private
-    def goback
-        redirect_to("/home/index")
+        return {year: new_y, month: new_m}
     end
     
     def newpostdata_params

@@ -14,4 +14,6 @@ Rails.application.routes.draw do
   get "category/index", to: 'category_config#index'
   get "change_ctg", to: 'home#change_ctg'
   get "change_month", to: 'home#change_month'
+  post "change_month", to: 'home#change_month'
+  post "change_month_chart", to: 'home#change_month_chart'
 end

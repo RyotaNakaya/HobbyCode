@@ -74,17 +74,20 @@ $(document).on 'ready page:load', ->
 #             next_m = ""
 
 # 月のチェンジファンクション
-$(document).on 'click', '.change-month', ->
-  $.ajax
-    type: 'get'
-    url: '/change_month'
-    data: {
-        vector: $(this).attr("id"), 
-        year: $(".this-year").get(0).innerText, 
-        month: $(".this-month").get(0).innerText
-        }
-    success: (result) ->
-        debugger
-        console.log(result)
+# $(document).on 'click', '.change-month', ->
+#   $.ajax
+#     type: 'get'
+#     url: '/change_month'
+#     data: {
+#         vector: $(this).attr("id"), 
+#         year: $(".this-year").get(0).innerText, 
+#         month: $(".this-month").get(0).innerText
+#         }
+#     success: (result) ->
+#         debugger
+#         # a = result.detail[0].response
+#         console.log(result)
+#         $("#postdata_list").html('<%=j render partial: "../views/home/_history_insert", collections: @allpostdata %>');
+#         $("#postdata_list").html('<%= render template:"home/_history_insert" %>');
 
   
