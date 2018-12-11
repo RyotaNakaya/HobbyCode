@@ -22,6 +22,11 @@ $(document).on 'turbolinks:load', ->
         window.location = "/home/history/"
         return false;
 
+$(document).on 'turbolinks:load', ->
+    $("#grid_input").on "click", ->
+        window.location = "/home/grid_input/"
+        return false;
+
 
 
 # カレンダーの描画

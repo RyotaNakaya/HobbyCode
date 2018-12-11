@@ -64,6 +64,10 @@ class HomeController < ApplicationController
         redirect_to "/home/history"
     end
 
+    def grid_input
+        # 
+    end
+
     def get_chart_by_month(y, m)
         @chart_datas = Array.new
         ctg_mst = CategoryConfigController.get_all_category

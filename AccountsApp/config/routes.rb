@@ -16,4 +16,5 @@ Rails.application.routes.draw do
   get "change_month", to: 'home#change_month'
   post "change_month", to: 'home#change_month'
   post "change_month_chart", to: 'home#change_month_chart'
+  get "home/grid_input", to: "home#grid_input"
 end

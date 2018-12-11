@@ -13,13 +13,13 @@
             <%= obj.date.strftime("%Y-%m-%d") %>
         </td>
         <td class="history-data-category">
-            <%= obj.category != nil ? obj.category_id : "none" %>
+            <%= obj.category != nil ? obj.category.parent.ctg_name : "none" %>
         </td>
         <td class="history-data-sub-category">
             <%= obj.category != nil ? obj.category.ctg_name : "none" %>
         </td>
-        <td class="history-data-amount">
-            <%= obj.amount %>
+        <td class="history-data-amount text-right">
+            <%= obj.amount %>円
         </td>
         <td class="history-data-remark">
             <%= obj.remark %>
