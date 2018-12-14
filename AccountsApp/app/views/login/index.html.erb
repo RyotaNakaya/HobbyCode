@@ -1,0 +1,11 @@
+<h1>welcome</h1>
+<p>
+    <%= @msg %>
+</p>
+<hr>
+<div>
+    <%=link_to "go to login_check page!&gt;&gt;" .html_safe, {action: "login_check"} %>
+</div>
+<div>
+    <%=link_to "Sign out&gt;&gt;" .html_safe, destroy_account_session_path, method: :delete %>
+</div>

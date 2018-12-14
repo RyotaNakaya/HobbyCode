@@ -66,3 +66,6 @@ gem "chartkick"
 # カレンダー
 gem 'momentjs-rails'
 gem 'fullcalendar-rails'
+
+# ユーザー認証
+gem 'devise'
