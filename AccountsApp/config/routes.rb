@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  devise_for :accounts
+  get 'login/index'
+  get 'login/login_check'
   get 'category_config/index'
   get 'postdata/index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
