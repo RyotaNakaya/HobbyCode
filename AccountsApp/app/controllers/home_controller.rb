@@ -114,9 +114,6 @@ class HomeController < ApplicationController
 
     # Ajax処理で月の変更後の結果を取得する
     def change_month
-        # v = params[:vector]
-        # y = params[:year].to_i
-        # m = params[:month].to_i
         v = params[:button]
         y = params[:this_year].to_i
         m = params[:this_month].to_i
@@ -126,8 +123,6 @@ class HomeController < ApplicationController
         @year = after_data[:year]
         @month = after_data[:month]
         @allpostdata = show_by_month(@year, @month)
-        # render json: { allpostdata: @allpostdata, new_y: new_y, new_m: new_m}
-        # render partial: 'history_insert', json: { allpostdata: @allpostdata, new_y: new_y, new_m: new_m}
         render
     end
     
