@@ -6,14 +6,20 @@
 #     $("#jumpRecord").on "click", ->
 #         window.location.href = "/record/index"
 
-$(document).on 'turbolinks:load', ->
-    $(".del-data").on "click", ->
+# $(document).ready ->
+# $(document).on 'turbolinks:load', ->
+#     $(".del-data").on "click", ->
+#         if (confirm("このデータを削除しますか？"))
+#             document.location = "/home/delete/" + $(this).context.attributes.val.value
+#             return false;
+
+$(document).ready ->
+    $(document).on 'click', '.del-data', (e)->
         if (confirm("このデータを削除しますか？"))
             document.location = "/home/delete/" + $(this).context.attributes.val.value
             return false;
 
-$(document).on 'turbolinks:load', ->
-    $(".edit-data").on "click", ->
+    $(document).on 'click', '.edit-data', (e)->
         window.location = "/home/edit/" + $(this).context.attributes.val.value
         return false;
 
@@ -67,32 +73,5 @@ $(document).on 'ready page:load', ->
         val = $("#sub_ctg_select").val()
         $("#postdatum_category_id").val(Number(val))
 
-# 月のチェンジファンクション
-# $(document).on 'turbolinks:load', ->
-#     $(".change-month").on "click", ->
-#         if ($(this).attr("id") == "prev_month")
-#             debugger
-#             this_y = $(".this-year").get(0).innerText
-#             this_m = $(".this-month").get(0).innerText
-#             alert(this_y+this_m)
-#         else if ($(this).attr("id") == "next_month")
-#             next_m = ""
-
-# 月のチェンジファンクション
-# $(document).on 'click', '.change-month', ->
-#   $.ajax
-#     type: 'get'
-#     url: '/change_month'
-#     data: {
-#         vector: $(this).attr("id"), 
-#         year: $(".this-year").get(0).innerText, 
-#         month: $(".this-month").get(0).innerText
-#         }
-#     success: (result) ->
-#         debugger
-#         # a = result.detail[0].response
-#         console.log(result)
-#         $("#postdata_list").html('<%=j render partial: "../views/home/_history_insert", collections: @allpostdata %>');
-#         $("#postdata_list").html('<%= render template:"home/_history_insert" %>');
 
   
